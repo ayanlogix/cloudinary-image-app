@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloudinary Image Transformer | MLH GenAI 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0d0d1a;color:#e0e0e0;min-height:100vh}
+header{background:rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,165,0,0.2);padding:16px 32px;display:flex;align-items:center;gap:12px}
+header h1{font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,#ff6b35,#ffd700);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.badge{background:rgba(255,107,53,0.15);border:1px solid rgba(255,107,53,0.4);padding:4px 12px;border-radius:20px;font-size:0.75rem;color:#ff6b35}
+main{max-width:1100px;margin:0 auto;padding:40px 20px}
+.upload-zone{border:2px dashed rgba(255,107,53,0.4);border-radius:16px;padding:48px;text-align:center;margin-bottom:32px;transition:all 0.3s;cursor:pointer;background:rgba(255,107,53,0.03)}
+.upload-zone:hover{border-color:#ff6b35;background:rgba(255,107,53,0.07)}
+.upload-zone .icon{font-size:3rem;margin-bottom:12px}
+.upload-zone p{color:#888}
+.upload-zone input{display:none}
+.btn{padding:12px 24px;border-radius:10px;font-size:0.95rem;font-weight:600;cursor:pointer;border:none;transition:all 0.3s}
+.btn-primary{background:linear-gradient(135deg,#ff6b35,#ffd700);color:#000}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,107,53,0.4)}
+.transforms{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:32px}
+.transform-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px;cursor:pointer;transition:all 0.3s;text-align:center}
+.transform-card:hover,.transform-card.active{border-color:#ff6b35;background:rgba(255,107,53,0.1)}
+.transform-card .t-icon{font-size:1.8rem;margin-bottom:8px}
+.transform-card h3{font-size:0.9rem;font-weight:600;margin-bottom:4px}
+.transform-card p{font-size:0.78rem;color:#666}
+.preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.preview-box{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px}
+.preview-box h3{font-size:0.85rem;color:#888;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+.preview-box img{width:100%;border-radius:10px;max-height:300px;object-fit:contain}
+.url-display{background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:12px;margin-top:12px;font-size:0.75rem;color:#666;word-break:break-all;font-family:monospace}
+.config-panel{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;margin-bottom:32px}
+.config-panel h2{font-size:1.1rem;font-weight:700;margin-bottom:16px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+input[type=text]{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:10px 14px;color:#e0e0e0;font-size:0.9rem;width:100%;font-family:'Inter',sans-serif}
+input[type=text]:focus{outline:none;border-color:#ff6b35}
+label{font-size:0.8rem;color:#888;display:block;margin-bottom:6px}
+</style>
+</head>
+<body>
+<header>
+    <div style="font-size:1.6rem">☁️</div>
+    <h1>Cloudinary Image Transformer</h1>
+    <span class="badge">MLH GenAI 2025</span>
+</header>
+<main>
+    <div class="config-panel">
+        <h2>⚙️ Cloudinary Configuration</h2>
+        <div class="form-row">
+            <div><label>Cloud Name</label><input type="text" id="cloudName" placeholder="your-cloud-name" value="demo"></div>
+            <div><label>Image Public ID</label><input type="text" id="publicId" placeholder="sample" value="sample"></div>
+        </div>
+        <button class="btn btn-primary" onclick="applyTransformation()">🚀 Apply Transformations</button>
+    </div>
+
+    <h2 style="margin-bottom:16px;font-size:1.1rem">🎨 Choose Transformation</h2>
+    <div class="transforms">
+        <div class="transform-card active" onclick="selectTransform(this,'w_600,h_400,c_fill')">
+            <div class="t-icon">📐</div><h3>Crop & Resize</h3><p>600x400, fill mode</p>
+        </div>
+        <div class="transform-card" onclick="selectTransform(this,'e_grayscale')">
+            <div class="t-icon">⬛</div><h3>Grayscale</h3><p>Remove all color</p>
+        </div>
+        <div class="transform-card" onclick="selectTransform(this,'e_sepia')">
+            <div class="t-icon">🟫</div><h3>Sepia Filter</h3><p>Vintage warm tone</p>
+        </div>
+        <div class="transform-card" onclick="selectTransform(this,'e_blur:800')">
+            <div class="t-icon">🌫️</div><h3>Blur Effect</h3><p>Heavy blur filter</p>
+        </div>
+        <div class="transform-card" onclick="selectTransform(this,'e_art:athena')">
+            <div class="t-icon">🎨</div><h3>AI Art Filter</h3><p>Athena artistic style</p>
+        </div>
+        <div class="transform-card" onclick="selectTransform(this,'e_background_removal')">
+            <div class="t-icon">✂️</div><h3>BG Removal</h3><p>AI background removal</p>
+        </div>
+        <div class="transform-card" onclick="selectTransform(this,'w_300,h_300,c_thumb,g_face,r_max')">
+            <div class="t-icon">👤</div><h3>Face Crop</h3><p>Smart face detection</p>
+        </div>
+        <div class="transform-card" onclick="selectTransform(this,'e_cartoonify')">
+            <div class="t-icon">🖼️</div><h3>Cartoonify</h3><p>AI cartoon effect</p>
+        </div>
+    </div>
+
+    <div class="preview-grid">
+        <div class="preview-box">
+            <h3>Original</h3>
+            <img id="originalImg" src="https://res.cloudinary.com/demo/image/upload/sample.jpg" alt="Original">
+            <div class="url-display" id="originalUrl">https://res.cloudinary.com/demo/image/upload/sample.jpg</div>
+        </div>
+        <div class="preview-box">
+            <h3>✨ Transformed</h3>
+            <img id="transformedImg" src="https://res.cloudinary.com/demo/image/upload/w_600,h_400,c_fill/sample.jpg" alt="Transformed">
+            <div class="url-display" id="transformedUrl">https://res.cloudinary.com/demo/image/upload/w_600,h_400,c_fill/sample.jpg</div>
+        </div>
+    </div>
+</main>
+<script>
+let currentTransform='w_600,h_400,c_fill';
+function selectTransform(el,transform){
+    document.querySelectorAll('.transform-card').forEach(c=>c.classList.remove('active'));
+    el.classList.add('active');
+    currentTransform=transform;
+    applyTransformation();
+}
+function applyTransformation(){
+    const cloud=document.getElementById('cloudName').value||'demo';
+    const id=document.getElementById('publicId').value||'sample';
+    const orig=`https://res.cloudinary.com/${cloud}/image/upload/${id}.jpg`;
+    const transformed=`https://res.cloudinary.com/${cloud}/image/upload/${currentTransform}/${id}.jpg`;
+    document.getElementById('originalImg').src=orig;
+    document.getElementById('transformedImg').src=transformed;
+    document.getElementById('originalUrl').textContent=orig;
+    document.getElementById('transformedUrl').textContent=transformed;
+}
+</script>
+</body>
+</html>
