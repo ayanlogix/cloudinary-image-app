@@ -1,6 +1,6 @@
 # ☁️ Cloudinary Image Transformer
 
-MLH Global Hack Week GenAI 2025 — Cloudinary API Challenge
+MLH Global Hack Week GenAI 2025 - Cloudinary API Challenge
 
 ## Features
 - 🎨 8 AI-powered image transformations (grayscale, sepia, blur, cartoonify, etc.)
