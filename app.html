@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloudinary Transformer | MLH 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Inter',sans-serif;background:#0d0d1a;color:#e0e0e0;min-height:100vh;margin:0;padding:40px}
+header h1{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#ff6b35,#ffd700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;margin-bottom:40px}
+.config{background:rgba(255,255,255,0.04);border-radius:16px;padding:24px;margin-bottom:32px;border:1px solid #333}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:40px}
+.card{background:#111;border:1px solid #222;padding:20px;border-radius:12px;text-align:center;cursor:pointer}
+.card:hover{border-color:#ff6b35}
+.previews{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.box{background:#111;padding:20px;border-radius:16px;border:1px solid #222}
+img{width:100%;border-radius:8px}
+</style>
+</head>
+<body>
+    <header><h1>Cloudinary Image Transformer</h1></header>
+    <div class="config">
+        <h3>⚙️ Configuration</h3>
+        <p style="color:#666">Cloud: demo | ID: sample</p>
+    </div>
+    <div class="grid">
+        <div class="card">📐<br>Crop</div>
+        <div class="card">⬛<br>Gray</div>
+        <div class="card">🟫<br>Sepia</div>
+        <div class="card">🌫️<br>Blur</div>
+        <div class="card">🎨<br>Art</div>
+        <div class="card">✂️<br>NoBG</div>
+        <div class="card">👤<br>Face</div>
+        <div class="card">🖼️<br>Cartoon</div>
+    </div>
+    <div class="previews">
+        <div class="box"><p style="color:#666">ORIGINAL</p><img src="https://res.cloudinary.com/demo/image/upload/sample.jpg"></div>
+        <div class="box"><p style="color:#666">TRANSFORMED</p><img src="https://res.cloudinary.com/demo/image/upload/e_cartoonify/sample.jpg"></div>
+    </div>
+</body>
+</html>
